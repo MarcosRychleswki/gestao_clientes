@@ -1,6 +1,8 @@
+.idea
 *.sqlite3
 *pyc
 media
-.idea/
 clientes/migrations
-clientes/__pycache__/
+clients_photos
+gestao_clientes
+home/migrations
