@@ -6,3 +6,4 @@ clientes/migrations
 clients_photos
 gestao_clientes
 home/migrations
+.env

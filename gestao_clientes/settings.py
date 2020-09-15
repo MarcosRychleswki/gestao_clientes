@@ -9,9 +9,10 @@ https://docs.djangoproject.com/en/3.1/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/3.1/ref/settings/
 """
-
+import os
 from pathlib import Path
-
+from decouple import config
+from dj_database_url import parse as dburl
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -19,12 +20,12 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/3.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'fgzosb#x76(7tsg@fhua6lpcz$ru7t+vl0#p1!omb^6g8=9qto'
+SECRET_KEY = config('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = config('DEBUG', default=False, cast=bool)
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['gestao-clientes-rychlewski.herokuapp.com']
 
 # Application definition
 
@@ -72,16 +73,13 @@ WSGI_APPLICATION = 'gestao_clientes.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/3.1/ref/settings/#databases
 
+default_dburl = 'sqlite:///' + os.path.join(BASE_DIR, 'db.sqlite3')
+
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'gestao_clientes',
-        'USER': 'postgres',
-        'PASSWORD': 'python2001',
-        'HOST': '127.0.0.1',
-        'PORT': '5432',
-    }
+    'default': config('DATABASE_URL', default=default_dburl, cast=dburl),
 }
+
+
 # Password validation
 # https://docs.djangoproject.com/en/3.1/ref/settings/#auth-password-validators
 
@@ -127,3 +125,5 @@ LOGIN_URL = '/login/'
 LOGIN_REDIRECT_URL = '/clientes/list'
 
 LOGOUT_REDIRECT_URL = '/accounts/login'
+
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
