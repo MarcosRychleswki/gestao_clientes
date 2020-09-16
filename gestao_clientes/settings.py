@@ -119,7 +119,7 @@ STATIC_URL = '/static/'
 
 MEDIA_URL = '/media/'
 
-MEDIA_ROOT = '/media/'
+MEDIA_ROOT = 'media'
 
 LOGIN_URL = '/login/'
 

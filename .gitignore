@@ -3,7 +3,7 @@
 *pyc
 media
 clientes/migrations
-clients_photos
+media/clients_photos
 gestao_clientes
 home/migrations
 .env
