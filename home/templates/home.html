@@ -4,14 +4,26 @@
 {% block title %} Seja bem vindo {% endblock %}
 
 {% block main %}
-    <h1> Seja bem vindo </h1>
+    <div class="row">
+        <div class="col-sm">
+
+        </div>
+        <div class="col-6">
+          <h1> Seja bem vindo </h1>
+        </div>
+        <div class="col-sm">
+            {% if user.is_authenticated %}
+                <p>Ola {{ user.username }}</p>
+                <a href="{% url 'logout' %}">Sair</a>
+            {% else %}
+                <a href="{% url 'login' %}"class="btn btn-light">Entrar</a>
+            {% endif %}
+
+        </div>
+    </div>
 
 
-    {% if user.is_authenticated %}
-        <p>Ola {{ user.username }}</p>
-        <a href="{% url 'logout' %}">Sair</a>
-    {% else %}
-        <a href="{% url 'login' %}">Entrar</a>
-    {% endif %}
+
+
 
 {% endblock%}
