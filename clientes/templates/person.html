@@ -1,14 +1,13 @@
-<!doctype html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport"
-          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Document</title>
-</head>
-<body>
-    <p>{{ user.username }}</p>
+
+{% extends 'base.html'%}
+
+
+{% block title %} Administracao {% endblock %}
+
+{% block main %}
+
+
+      <p>{{ user.username }}</p>
     <a href="{% url 'logout' %}">Sair</a>
 
 
@@ -17,7 +16,7 @@
 
             <li>
                 <a href="{% url 'persons_update' person.id %}"> {{ person.first_name }}<a/>
-                <a href="{% url 'persons_delete' person.id %}"> Deletar<a/>
+                <a href="{% url 'persons_delete' person.id %}" class="btn btn-danger"> Deletar<a/>
             </li>
 
 
@@ -25,9 +24,6 @@
     </ul>
 
     <br>
-    <a href="{% url 'persons_new'%}"> Novo Cliente </a>
+    <a href="{% url 'persons_new'%}" class="btn btn-primary"> Novo Cliente </a>
+{% endblock%}
 
-
-
-</body>
-</html>
