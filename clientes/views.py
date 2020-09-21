@@ -2,8 +2,13 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required
 from .models import Person
 from .forms import PersonForm
+from django.views.generic.list import ListView
+from django.views.generic.detail import DetailView
 
 
+
+
+# TODO lembrete de coisas a melhorar ou fazer
 # Create your views here.
 @login_required
 def persons_list(request):
@@ -42,3 +47,10 @@ def persons_delete(request, id):
 
     return render(request, 'person_delete_confirm.html', {'person': person})
 
+
+class PersonList(ListView):
+    model = Person
+
+
+class PersonDetail(DetailView):
+    model = Person
