@@ -1,3 +1,5 @@
+<h1>Person detail:</h1>
+<br>
 {{ object.first_name }}
 {{ object.last_name }}
 <br>
@@ -9,4 +11,7 @@
 
 {{ object.photo }}
 
+
+<a href="{% url 'update_view_cbv' object.id %}">update</a> <br>
+<a href="{% url 'delete_view_cbv' object.id %}">delete</a>
 

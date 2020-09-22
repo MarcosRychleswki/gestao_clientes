@@ -2,8 +2,10 @@ Listagem de pessoa
 
 
 <br>
-{% for person in object_list%}
+{% for person in object_list%} <br>
 <a href="person_detail/{{person.id}}">{{person}}</a>
 
 
 {% endfor %}
+
+<a href="{% url 'person_create_cbv' %}">Novo</a>
