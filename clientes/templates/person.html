@@ -1,6 +1,6 @@
 
 {% extends 'base.html'%}
-
+{% load filters %}
 
 {% block title %} Administracao {% endblock %}
 
@@ -16,7 +16,7 @@
                     {% for person in persons%}
 
                         <li class="list-group-item">
-                            <a href="{% url 'persons_update' person.id %}"> {{ person.first_name }}<a/>
+                            <a href="{% url 'persons_update' person.id %}"> {{ person.nome_completo|title }}<a/>
                             <a href="{% url 'persons_delete' person.id %}" >
                                 <i class="far fa-trash-alt"></i>
 
@@ -24,6 +24,8 @@
                                 <a/>
                         </li>
 
+                        {% empty %}
+                        <li> Sem clientes cadastrados </li>
 
                     {% endfor %}
                 </ul>
@@ -43,5 +45,16 @@
 
 
 
-{% endblock%}
 
+
+{% if persons|length >= 4 %}
+   limite maximo!
+{% endif %}
+
+
+
+{% endblock %}
+
+{% block footer %}
+    {% include 'footer.html'%}
+{% endblock %}
