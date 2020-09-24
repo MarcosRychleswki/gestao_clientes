@@ -1,4 +1,8 @@
-Listagem de pessoa
+
+{% extends 'base.html' %}
+{% block main %}
+
+<h3> Listagem de clientes </h3>
 
 
 <br>
@@ -6,6 +10,7 @@ Listagem de pessoa
 <a href="person_detail/{{person.id}}">{{person}}</a>
 
 
-{% endfor %}
+{% endfor %}<br> <br>
 
-<a href="{% url 'person_create_cbv' %}">Novo</a>
+<a href="{% url 'person_create_cbv' %}" class="btn btn-primary">Novo</a>
+{% endblock %}

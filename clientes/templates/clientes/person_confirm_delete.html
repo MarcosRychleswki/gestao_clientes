@@ -1,5 +1,10 @@
+{% extends 'base.html' %}
+{% block main %}
 <form method="post">
     {% csrf_token %}
     <p>Tem certeza que deseja excluir "{{ object }}"?</p>
     <input type="submit" value="Confirm">
+    <a href="{% url 'detail_view_cbv' object.id %}" class="btn btn-primary">cancel</a>
+
 </form>
+{% endblock %}

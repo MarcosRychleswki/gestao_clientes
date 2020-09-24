@@ -26,3 +26,16 @@ body {
   max-width: 680px;
   padding: 0 15px;
 }
+
+# hora_server{
+    float: right;
+    width:30%;
+
+}
+
+
+.foot_message{
+    fload:left;
+    width:60%;
+
+}

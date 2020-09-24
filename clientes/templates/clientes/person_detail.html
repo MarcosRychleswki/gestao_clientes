@@ -1,17 +1,40 @@
+
+{% extends 'base.html' %}
+
+{% block main %}
 <h1>Person detail:</h1>
 <br>
 {{ object.first_name }}
 {{ object.last_name }}
 <br>
+
+
+<h2>Vendas</h2>
+{% for venda in vendas %}
+    <p>Venda id {{ venda.id}}</p>
+    <h3>Lista de produtos</h3>
+    <ul>
+        {% for produto in venda.produtos.all %}
+        <li>{{ produto.id }} - {{ produto.descricao }}</li>
+        {% endfor %}
+    </ul>
+
+{% endfor %}
+
 {{ object.age }}<br>
 
 {{ object.salary }}<br>
 
 {{ object.bio }}<br>
 
-{{ object.photo }}
+{{ object.photo }}<br>
 
 
-<a href="{% url 'update_view_cbv' object.id %}">update</a> <br>
-<a href="{% url 'delete_view_cbv' object.id %}">delete</a>
+<!--<a href="{% url 'update_view_cbv' object.id %}">update</a>-->
+<a href="{% url 'update_view_cbv' object.id %}" class="btn btn-primary">update</a>
+<a href="{% url 'delete_view_cbv' object.id %}" class="btn btn-primary">delete</a>
 
+
+
+
+{% endblock %}
