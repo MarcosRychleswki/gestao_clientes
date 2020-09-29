@@ -1,7 +1,6 @@
 from django.forms import ModelForm
-from .models import Person, Produto
-
-
+from .models import Person
+from produtos.models import Produto
 
 
 class PersonForm(ModelForm):

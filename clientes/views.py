@@ -1,7 +1,9 @@
 from django.http import HttpResponse
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required
-from .models import Person, Produto, Vendas
+from .models import Person
+from produtos.models import Produto
+from vendas.models import Vendas
 from .forms import PersonForm
 from django.views.generic.list import ListView
 from django.views.generic.list import View
@@ -99,7 +101,6 @@ class ProdutoBulk(View):
     def get(self, request):
         produtos=['banana', 'maca', 'melancia', 'pera', 'limao', 'laranja']
         list_produtos = []
-
 
         for produto in produtos:
             p = Produto(descricao=produto, preco=10)
