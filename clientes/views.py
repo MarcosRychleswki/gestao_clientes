@@ -1,4 +1,5 @@
 from django.http import HttpResponse
+from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required
 from .models import Person
@@ -11,7 +12,6 @@ from django.views.generic.detail import DetailView
 from django.views.generic.edit import CreateView
 from django.views.generic.edit import UpdateView
 from django.views.generic.edit import DeleteView
-
 from django.urls import reverse_lazy
 
 
@@ -25,6 +25,11 @@ def persons_list(request):
 
 @login_required
 def persons_new(request):
+    if not request.user.has_perm('clientes.add_person'):
+        return HttpResponse('Nao autorizado')
+    elif not request.user.is_superuser:               #sistema de permissao
+        return HttpResponse('Nao e superuser')
+
     form = PersonForm(request.POST or None, request.FILES or None)
 
     if form.is_valid():
@@ -54,14 +59,25 @@ def persons_delete(request, id):
     return render(request, 'person_delete_confirm.html', {'person': person})
 
 
-class PersonList(ListView):
+class PersonList(LoginRequiredMixin, ListView):#sempre a esquerda o LoginRequiredMixin pois ele tem que ser o primeiro
+    model = Person
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+
+        primeiro_acesso = self.request.session.get('primeiro_acesso',False)
+
+        if not primeiro_acesso:
+            context['message']= 'Seja bem vindo ao seu primeiro acesso'
+            self.request.session['primeiro_acesso']= True
+        else:
+            context['message']= 'Voce ja acessou hoje'
+        return context
+
+
+class PersonDetail(LoginRequiredMixin, DetailView):
     model = Person
 
-
-class PersonDetail(DetailView):
-    model = Person
-
-#diminuir a query
+#diminui a query
     #def get_object(self, queryset=None):
         #pk = self.kwargs.get(self.pk_url_kwarg)
         #return Person.objects.select_related('doc').get(id=pk)
@@ -91,7 +107,8 @@ class PersonUpdate(UpdateView):
     success_url = reverse_lazy('person_list_cbv')
 
 
-class PersonDelete(DeleteView):
+class PersonDelete(PermissionRequiredMixin, DeleteView):
+    permission_required = ('clientes.deletar_clientes',)
     model = Person
     fields = ['first_name', 'last_name', 'age', 'salary', 'bio', 'photo']
     success_url = reverse_lazy('person_list_cbv')
@@ -109,5 +126,4 @@ class ProdutoBulk(View):
         Produto.objects.bulk_create(list_produtos)
 
         return HttpResponse('Funcionou')
-
 

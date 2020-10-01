@@ -13,6 +13,7 @@ import os
 from pathlib import Path
 from decouple import config
 from dj_database_url import parse as dburl
+
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -27,9 +28,7 @@ DEBUG = config('DEBUG', default=False, cast=bool)
 
 ALLOWED_HOSTS = ['gestao-clientes-rychlewski.herokuapp.com', '*']
 
-INTERNAL_IPS = ['127.0.0.1',]
-
-
+INTERNAL_IPS = ['127.0.0.1', ]
 
 # Application definition
 
@@ -89,7 +88,6 @@ DATABASES = {
     'default': config('DATABASE_URL', default=default_dburl, cast=dburl),
 }
 
-
 # Password validation
 # https://docs.djangoproject.com/en/3.1/ref/settings/#auth-password-validators
 
@@ -141,3 +139,9 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 STATICFILES_DIRS = [
     'statics',
 ]
+
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_PORT = 587
+EMAIL_HOST_USER = 'vinirychlewski@gmail.com'
+EMAIL_HOST_PASSWORD = 'dilindo2'
+EMAIL_USE_TLS = True

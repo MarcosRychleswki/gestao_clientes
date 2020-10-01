@@ -23,7 +23,9 @@ class HomePageView(TemplateView):
 class MyView(View):
 
     def get(self, request, *args, **kwargs):
-        return render(request,'home/home3.html')
+        response = render(request,'home/home3.html')
+        response.set_cookie('color', 'blue', max_age=1000)
+        return response
 
 
     def post(self, request, *args, **kwargs):

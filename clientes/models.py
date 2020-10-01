@@ -10,6 +10,13 @@ class Person(models.Model):
     bio = models.TextField()
     photo = models.ImageField(upload_to='clients_photos', null=True, blank=True)
 
+
+    class Meta:
+        permissions = (
+            ('deletar_clientes', 'Deletar_clientes'),
+        )
+
+
     @property
     def nome_completo(self):
         return self.first_name + ' ' + self.last_name
