@@ -30,22 +30,34 @@ ALLOWED_HOSTS = ['gestao-clientes-rychlewski.herokuapp.com', '*']
 
 INTERNAL_IPS = ['127.0.0.1', ]
 
+ADMINS = [('Marcos', 'vinirychlewski@gmail.com')]
+
 # Application definition
 
 INSTALLED_APPS = [
     'django.contrib.admin',
     'django.contrib.auth',
+    'django.contrib.sites',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'bootstrapform',
+
+    'allauth',
+    'allauth.account',
+    'allauth.socialaccount',
+    'allauth.socialaccount.providers.facebook',
+    'allauth.socialaccount.providers.twitter',
+
     'clientes',
     'home',
     'vendas',
     'produtos',
     'debug_toolbar'
 ]
+
+SITE_ID = 1
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -56,6 +68,7 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'debug_toolbar.middleware.DebugToolbarMiddleware',
+    'mymiddlewares.MetaData.MetaData',
 
 ]
 
@@ -78,6 +91,11 @@ TEMPLATES = [
 ]
 
 WSGI_APPLICATION = 'gestao_clientes.wsgi.application'
+
+AUTHENTICATION_BACKENDS = [
+    'django.contrib.auth.backends.ModelBackend',
+    'allauth.account.auth_backends.AuthenticationBackend',
+    ]
 
 # Database
 # https://docs.djangoproject.com/en/3.1/ref/settings/#databases
@@ -140,8 +158,11 @@ STATICFILES_DIRS = [
     'statics',
 ]
 
+
+#servidor smtp
 EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_PORT = 587
 EMAIL_HOST_USER = 'vinirychlewski@gmail.com'
 EMAIL_HOST_PASSWORD = 'dilindo2'
 EMAIL_USE_TLS = True
+

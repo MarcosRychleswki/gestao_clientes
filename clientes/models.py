@@ -1,5 +1,5 @@
 from django.db import models
-
+from django.core.mail import send_mail, mail_admins
 
 class Person(models.Model):
     objects = None
@@ -20,6 +20,24 @@ class Person(models.Model):
     @property
     def nome_completo(self):
         return self.first_name + ' ' + self.last_name
+
+    def save(self, *args, **kwargs):
+        super(Person, self).save(*args, **kwargs)
+
+        send_mail(
+            'Novo cliente cadastrado',
+            'o cliente %s foi cadastrado' % self.first_name,
+            'vinirychlewski@gmail.com',
+            ['vinirychlewski@gmail.com'],
+            fail_silently=False,
+        )
+
+        mail_admins(
+            'Novo cliente cadastrado',
+            'o cliente %s foi cadastrado' % self.first_name,
+            fail_silently=False,
+        )
+
 
     def __str__(self):
         return self.first_name + ' ' + self.last_name

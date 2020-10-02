@@ -24,6 +24,7 @@ def persons_list(request):
 
 
 @login_required
+
 def persons_new(request):
     if not request.user.has_perm('clientes.add_person'):
         return HttpResponse('Nao autorizado')

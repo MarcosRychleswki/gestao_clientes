@@ -34,7 +34,7 @@
                 <a href="{% url 'persons_new'%}" class="btn btn-primary"> Novo Cliente </a>
         </div>
         <div class="col">
-            <p>{{ user.username }} <a href="{% url 'logout' %}"<span class="badge badge-dark">Sair</span>
+            <p>{{ request.session.message }} <a href="{% url 'logout' %}"<span class="badge badge-dark">Sair</span>
                 </a>
             </p>
 
